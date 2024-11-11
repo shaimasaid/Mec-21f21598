@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+public class RestaurantBill {
+    
+    // Define the menu with item names and their prices
+    static String[] menuItems = {
+        "Burger", "Pizza", "Pasta", "Salad", "Soda"
+    };
+    
+    static double[] itemPrices = {
+        234, 123, 123, 32, 45
+    };
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+      
+        System.out.println("Welcome to the Restaurant!");
+        System.out.println("Here is the menu:");
+        for (int i = 0; i < menuItems.length; i++) {
+            System.out.println((i + 1) + ". " + menuItems[i] + " - $" + itemPrices[i]);
+        }
+
+        System.out.print("\nEnter the number of different items you ordered: ");
+        int numItems = scanner.nextInt();
+        
+        double totalAmount = 0;
+
+        for (int i = 0; i < numItems; i++) {
+            System.out.print("\nEnter the number corresponding to the item (1-5): ");
+            int itemNumber = scanner.nextInt();
+
+            if (itemNumber < 1 || itemNumber > menuItems.length) {
+                System.out.println("Invalid item number. Please try again.");
+                i--; // Retry this item entry
+                continue;
+            }
+
+            System.out.print("Enter the quantity of " + menuItems[itemNumber - 1] + ": ");
+            int quantity = scanner.nextInt();
+
+            totalAmount += itemPrices[itemNumber - 1] * quantity;
+        }
+
+        double tax = totalAmount * 0.08;
+
+        double tip = totalAmount * 0.15;
+
+        double finalAmount = totalAmount + tax + tip;
+
+        System.out.println("\n----- Bill Summary -----");
+        for (int i = 0; i < menuItems.length; i++) {
+            System.out.println(menuItems[i] + " - $" + itemPrices[i]);
+        }
+        System.out.println("\nSubtotal: $" + totalAmount);
+        System.out.println("Tax (8%): $" + tax);
+        System.out.println("Tip (15%): $" + tip);
+        System.out.println("Total Amount Due: $" + finalAmount);
+
+        scanner.close();
+    }
+}
